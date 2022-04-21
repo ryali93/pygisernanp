@@ -9,12 +9,9 @@ import tempfile
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.styles.borders import Border, Side
-from openpyxl.styles import PatternFill
 from openpyxl import drawing
-import win32com.client
 import os
 import string
-import xlsxwriter
 import matplotlib.pyplot as plt
 
 plt.style.use('ggplot')
@@ -38,11 +35,15 @@ def abc(inicial, final):
 def get_data(gdb, fc, fuente, mesrep):
     fields = ["anp_codi", "zi_codi", "md_sup", "md_fecimg", "md_bosque", "md_causa"]
     domains = [x for x in arcpy.da.ListDomains(gdb) if x.name == "ANP"][0]
-    sql = "md_mesrep = {} AND md_fuente = {}".format(mesrep, fuente)
+    # sql = "md_mesrep = {} AND md_fuente = {}".format(mesrep, fuente)
+    sql = "md_mesrep IN (2022034, 2022042)  AND md_fuente = 3"
     np_df = arcpy.da.TableToNumPyArray(fc, fields, sql)
     df = pd.DataFrame(np_df)
     df["anp_nomb"] = df["anp_codi"].apply(lambda x: domains.codedValues[x])
-    df_f = df.groupby(("anp_codi", "zi_codi")).agg({
+    
+    df2 = df[df["md_causa"] != 14]
+
+    df_f = df2.groupby(("anp_codi", "zi_codi")).agg({
         "md_sup": "sum",
         "md_fecimg": "first",
         "anp_nomb": "first"
@@ -56,7 +57,7 @@ def get_data(gdb, fc, fuente, mesrep):
         "md_sup": df_n["md_sup"].apply(lambda x:round(x,2))
     })
     data_1 = data_1[["anp_nomb", "anp_codi", "zi_codi", "md_fecimg", "md_sup"]]
-    data_2 = df.groupby("anp_nomb")["md_sup"].sum()
+    data_2 = df2.groupby("anp_nomb")["md_sup"].sum()
     data_2 = data_2.reset_index()
     data_2["md_sup"] = data_2["md_sup"].apply(lambda x:round(x,2))
 
@@ -193,6 +194,7 @@ def create_report(df1, df2, path_xlsx_template, path_graph, path_xlsx_outh, msg_
     for x in range(nrow, nrow+len(df2)):
         ws["A{}".format(x)] = df2[x-nrow][0]
         ws["B{}".format(x)] = df2[x-nrow][1]
+        ws["B{}".format(x)].alignment = Alignment(horizontal='center', vertical='center')
         ws["A{}".format(x)].border = thin_border
         ws["B{}".format(x)].border = thin_border
     ws["A{}".format(x)].font = Font(bold=True)
@@ -208,16 +210,16 @@ def create_report(df1, df2, path_xlsx_template, path_graph, path_xlsx_outh, msg_
     wb.save(path_xlsx_outh)
 
 def proccess():
-    gdb = r'E:\sernanp\data\backup_20220401.gdb'
-    fc = os.path.join(gdb, r'MonitDefor')
-    path_xlsx_template = r'E:\sernanp\proyectos\monitoreo\reporte\reporte.xlsx'
-    path_xlsx_outh = r'E:\sernanp\proyectos\monitoreo\reporte\reporte_2022035.xlsx'
+    gdb = r'Database Connections\gdb.sde'
+    fc = os.path.join(gdb, r'gdb.ryalis.MonitoreoDeforestacion\gdb.ryalis.MonitDefor') # os.path.join(gdb, r'MonitDefor')
+    path_xlsx_template = r'F:\sernanp\proyectos\monitoreo\reporte\reporte.xlsx'
+    path_xlsx_outh = r'F:\sernanp\proyectos\monitoreo\reporte\reporte_2022042_pncb2.xlsx'
 
     temp_folder = tempfile.mkdtemp()
     path_graph = os.path.join(temp_folder, "reporte_tmp.png")
 
-    fuente = 2
-    mesrep = 2022035
+    fuente = 3
+    mesrep = 2022042
     df1, df2, msg_dates, data_bosque, data_causa = get_data(gdb, fc, fuente=fuente, mesrep=mesrep)
     msg_title = create_msg_title(fuente, msg_dates)
     create_graph(df2, msg_dates, msg_title, path_graph)

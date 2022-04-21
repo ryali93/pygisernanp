@@ -4,11 +4,9 @@ import json
 import requests
 import datetime
 
-# main_url = "https://services6.arcgis.com/DWc6sLYN7TTrbI6g/ArcGIS/rest/services/DEFOR_2021_05_25_gdb/FeatureServer/"
 main_url = "http://geospatial.sernanp.gob.pe/arcgis_server/rest/services/sernanp_monitoreo/deforestacion/FeatureServer/"
 fields_monitdefor = ['anp_codi','md_fuente','zi_codi','md_causa','md_mesrep','md_fecrev','md_fecimg','md_sup','md_exa','md_obs','md_conf','md_bosque','md_zonif']
 fields_monitdeforacum = ['anp_codi','md_fuente','zi_codi','md_causa','md_anno','md_fecimg','md_sup','md_exa','md_obs','md_conf','md_bosque','md_zonif']
-# list_fields = ['anp_codi','md_fuente','zi_codi','md_causa','md_fecimg','md_sup','md_exa','md_obs','md_conf','md_bosque','md_zonif']
 
 def get_service(layer):
     '''
@@ -99,14 +97,7 @@ def delete_features_from_url(url, query=None):
     # arcpy.AddMessage(res)
 
 def proccess():
-    # fc = arcpy.GetParameterAsText(0)
-    # mesrep = arcpy.GetParameterAsText(1) # 2021062
-    # fc = r'E:\sernanp\data\sma\ReporteCobertura.gdb\MonitoreoDeforestacionAcumulado' # r"E:\sernanp\data\backup_2021_12_22.gdb\MonitDefor" # r'E:\sernanp\data\sma\ReporteCobertura.gdb\MonitoreoDeforestacionAcumulado'
-    # fc = r'E:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb\MonitoreoDeforestacionAcumulado'
-    # fc = r'E:\sernanp\proyectos\monitoreo\backup_2022_03_14.gdb\MonitDefor'
-    # fc = r'E:\sernanp\data\backup_2022_03_17.gdb\MonitDefor'
-    fc = r'E:\sernanp\data\backup_2022_03_25_n.gdb\MonitDefor'
-    # fc = r'E:\sernanp\proyectos\monitoreo\defor_20220221.gdb\MonitDefor'
+    fc = r'Database Connections\gdb.sde\gdb.ryalis.MonitoreoDeforestacion\gdb.ryalis.MonitDefor'
     mesrep = 2021122
     code_feature = "0" if fc.endswith("MonitoreoDeforestacion") or fc.endswith("MonitDefor")  else "1"
     services = get_service(code_feature) # MonitoreoDeforestacion
@@ -117,11 +108,7 @@ def proccess():
     url_delete = services["delete_features_url"]
 
     # get oids
-    # mesrep = 2021063
-    # sql = "md_mesrep = {}".format(mesrep)
-    # sql = None
-    # sql = "md_fuente = 1"
-    sql = "md_anno = 2021"
+    sql = "1 = 1"
     arcpy.AddMessage(sql)
     chunks, len_oid = get_oid_list(fc, sql)
 
@@ -133,12 +120,12 @@ def proccess():
         i = 1
         for chunk in chunks:
             print(i)
-            # chunk = chunks[0]
             oid_sql = "objectid in ({})".format(",".join([str(x) for x in chunk]))
             features = create_features_json(fc, fields, oid_sql)
             upload_features_to_url(url_upload, features)
             i += 1
         arcpy.AddMessage("Se han subido correctamente {} registros al servicio {}".format(len_oid, url_query))
+        print("Se han subido correctamente {} registros al servicio {}".format(len_oid, url_query))
     else:
         arcpy.AddMessage("Posiblemente no tenga registros del Mes de Reporte {} o ya se encuentren subidos".format(mesrep))
 
