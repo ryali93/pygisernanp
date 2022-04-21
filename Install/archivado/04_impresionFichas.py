@@ -80,7 +80,6 @@ def crear_mapa(MES_REV, codigo_zi, nombre_anp):
     mfl_zi = arcpy.MakeFeatureLayer_management(gpo_zona_interes, "mfl_zi", sql)
     anp_codi = [x[0] for x in arcpy.da.SearchCursor(mfl_zi, ["ANP_CODI"])][0]
 
-    print("LLEEEEEEEEEEGOOOOO")
     suma_area_actual = 0
     if len(date_satimg_current)>0:
         sql_area = "{} = '{}' AND {} = {}".format("ZI_CODI", codigo_zi, "MD_MESREP", MESREP)
