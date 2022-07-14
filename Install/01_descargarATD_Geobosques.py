@@ -20,9 +20,9 @@ SCRATCH = arcpy.env.scratchGDB
 # fecha_inicio = arcpy.GetParameterAsText(0)
 # folder_salida = arcpy.GetParameterAsText(1)
 # gdb_template = arcpy.GetParameterAsText(2)
-fecha_inicio = '01/01/2022'
-folder_salida = r'E:\sernanp\proyectos\monitoreo\pncb'
-gdb_template = r'E:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb'
+fecha_inicio = '01/06/2022'
+folder_salida = r'F:\sernanp\proyectos\monitoreo\pncb'
+gdb_template = r'F:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb'
 
 atd_plantilla = os.path.join(gdb_template, 'MonitDefor')
 path_exa = os.path.join(gdb_template, 'gpo_exa')

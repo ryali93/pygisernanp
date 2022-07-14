@@ -97,8 +97,8 @@ def delete_features_from_url(url, query=None):
     # arcpy.AddMessage(res)
 
 def proccess():
-    fc = r'Database Connections\gdb.sde\gdb.ryalis.MonitoreoDeforestacion\gdb.ryalis.MonitDefor'
-    mesrep = 2021122
+    fc = r'Database Connections\gdb.sde\gdb.sde.MonitoreoCobertura\gdb.sde.MonitoreoDeforestacion'
+    mesrep = 2022065
     code_feature = "0" if fc.endswith("MonitoreoDeforestacion") or fc.endswith("MonitDefor")  else "1"
     services = get_service(code_feature) # MonitoreoDeforestacion
     fields = fields_monitdefor if fc.endswith("MonitoreoDeforestacion") or fc.endswith("MonitDefor") else fields_monitdeforacum
@@ -108,9 +108,11 @@ def proccess():
     url_delete = services["delete_features_url"]
 
     # get oids
-    sql = "1 = 1"
+    # sql = "1 = 1"
+    sql = "md_mesrep = {}".format(mesrep)
     arcpy.AddMessage(sql)
     chunks, len_oid = get_oid_list(fc, sql)
+    arcpy.AddMessage(len_oid)
 
     # Count rows from query
     len_query = count_rows_from_query(url_query, sql)
