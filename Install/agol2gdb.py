@@ -5,9 +5,9 @@ import arcpy
 scratch = arcpy.env.scratchGDB
 arcpy.env.overwriteOutput = True
 
-gdb = r'E:\sernanp\apoyo\jcaballero\pruebas_serfor.gdb'
-nameFc = "Defor_tala"
-url = 'https://geo.serfor.gob.pe/geoservicios/rest/services/Visor/Monitoreo_Deforestacion_Tala/MapServer/1/query'
+gdb = r'E:\sernanp\apoyo\marisela\geocatmin.gdb'
+nameFc = "RegionGeotermal"
+url = 'https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_GEOTERMICO/MapServer/10/query'
 
 
 class RequestDataAGOL(object):

@@ -16,7 +16,7 @@ SCRATCH_FOLDER = arcpy.env.scratchFolder
 # fecha_inicio = arcpy.GetParameterAsText(0)
 # folder_salida = arcpy.GetParameterAsText(1)
 # gdb_template = arcpy.GetParameterAsText(2)
-fecha_inicio = '01/02/2022'
+fecha_inicio = '25/07/2022'
 folder_salida = r'E:\sernanp\proyectos\monitoreo\sentinel'
 gdb_template = r'E:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb'
 
