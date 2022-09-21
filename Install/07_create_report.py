@@ -35,8 +35,8 @@ def abc(inicial, final):
 def get_data(gdb, fc, fuente, mesrep):
     fields = ["anp_codi", "zi_codi", "md_sup", "md_fecimg", "md_bosque", "md_causa"]
     domains = [x for x in arcpy.da.ListDomains(gdb) if x.name == "ANP"][0]
-    # sql = "md_mesrep = {} AND md_fuente = {}".format(mesrep, fuente)
-    sql = "md_mesrep IN (2022034, 2022042)  AND md_fuente = 3"
+    sql = "md_mesrep = {} AND md_fuente = {}".format(mesrep, fuente)
+    # sql = "md_mesrep IN (2022034, 2022042)  AND md_fuente = 3"
     np_df = arcpy.da.TableToNumPyArray(fc, fields, sql)
     df = pd.DataFrame(np_df)
     df["anp_nomb"] = df["anp_codi"].apply(lambda x: domains.codedValues[x])
@@ -109,7 +109,7 @@ def create_graph(df, msg_dates, msg_title, path_graph):
     plt.rcdefaults()
     plt.style.use('ggplot')
     plt.rcParams.update({'figure.autolayout': True})
-    fig, ax = plt.subplots(figsize=(7, 8))
+    fig, ax = plt.subplots(figsize=(8, 10))
     ax.barh(lefts, large_num, tick_label=large_letter, align='center')
     ax.set_title(msg_title_n, fontdict={'fontsize': 11, 'fontweight': 'medium'})
     plt.xlabel(u'Suma de hectáreas', fontsize=10)
@@ -211,15 +211,15 @@ def create_report(df1, df2, path_xlsx_template, path_graph, path_xlsx_outh, msg_
 
 def proccess():
     gdb = r'Database Connections\gdb.sde'
-    fc = os.path.join(gdb, r'gdb.ryalis.MonitoreoDeforestacion\gdb.ryalis.MonitDefor') # os.path.join(gdb, r'MonitDefor')
+    fc = os.path.join(gdb, r'gdb.sde.MonitoreoCobertura\gdb.sde.MonitoreoDeforestacion') # os.path.join(gdb, r'MonitDefor')
     path_xlsx_template = r'F:\sernanp\proyectos\monitoreo\reporte\reporte.xlsx'
-    path_xlsx_outh = r'F:\sernanp\proyectos\monitoreo\reporte\reporte_2022042_pncb2.xlsx'
+    path_xlsx_outh = r'F:\sernanp\proyectos\monitoreo\reporte\reporte_2022065_pncb.xlsx'
 
     temp_folder = tempfile.mkdtemp()
     path_graph = os.path.join(temp_folder, "reporte_tmp.png")
 
     fuente = 3
-    mesrep = 2022042
+    mesrep = 2022065
     df1, df2, msg_dates, data_bosque, data_causa = get_data(gdb, fc, fuente=fuente, mesrep=mesrep)
     msg_title = create_msg_title(fuente, msg_dates)
     create_graph(df2, msg_dates, msg_title, path_graph)

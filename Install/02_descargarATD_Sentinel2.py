@@ -16,9 +16,15 @@ SCRATCH_FOLDER = arcpy.env.scratchFolder
 # fecha_inicio = arcpy.GetParameterAsText(0)
 # folder_salida = arcpy.GetParameterAsText(1)
 # gdb_template = arcpy.GetParameterAsText(2)
+<<<<<<< HEAD
 fecha_inicio = '25/07/2022'
 folder_salida = r'E:\sernanp\proyectos\monitoreo\sentinel'
 gdb_template = r'E:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb'
+=======
+fecha_inicio = '01/06/2022'
+folder_salida = r'F:\sernanp\proyectos\monitoreo\sentinel'
+gdb_template = r'F:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb'
+>>>>>>> 62bf45073e18c7179d69d3524529afbf16e8b929
 
 # Capas para obtener informacion
 atd_plantilla = os.path.join(gdb_template, 'MonitDefor')
