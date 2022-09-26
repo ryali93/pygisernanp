@@ -98,7 +98,7 @@ def delete_features_from_url(url, query=None):
 
 def proccess():
     fc = r'Database Connections\gdb.sde\gdb.sde.MonitoreoCobertura\gdb.sde.MonitoreoDeforestacion'
-    mesrep = 2022065
+    mesrep = 2022091
     code_feature = "0" if fc.endswith("MonitoreoDeforestacion") or fc.endswith("MonitDefor")  else "1"
     services = get_service(code_feature) # MonitoreoDeforestacion
     fields = fields_monitdefor if fc.endswith("MonitoreoDeforestacion") or fc.endswith("MonitDefor") else fields_monitdeforacum

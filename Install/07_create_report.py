@@ -210,16 +210,17 @@ def create_report(df1, df2, path_xlsx_template, path_graph, path_xlsx_outh, msg_
     wb.save(path_xlsx_outh)
 
 def proccess():
+    fuente = 3
+    mesrep = 2022091
     gdb = r'Database Connections\gdb.sde'
+    # gdb = r'Conexiones de base de datos\gdb.sde'
     fc = os.path.join(gdb, r'gdb.sde.MonitoreoCobertura\gdb.sde.MonitoreoDeforestacion') # os.path.join(gdb, r'MonitDefor')
     path_xlsx_template = r'F:\sernanp\proyectos\monitoreo\reporte\reporte.xlsx'
-    path_xlsx_outh = r'F:\sernanp\proyectos\monitoreo\reporte\reporte_2022065_pncb.xlsx'
+    path_xlsx_outh = r'F:\sernanp\proyectos\monitoreo\reporte\reporte_2022091_pncb.xlsx'
 
     temp_folder = tempfile.mkdtemp()
     path_graph = os.path.join(temp_folder, "reporte_tmp.png")
 
-    fuente = 3
-    mesrep = 2022065
     df1, df2, msg_dates, data_bosque, data_causa = get_data(gdb, fc, fuente=fuente, mesrep=mesrep)
     msg_title = create_msg_title(fuente, msg_dates)
     create_graph(df2, msg_dates, msg_title, path_graph)
