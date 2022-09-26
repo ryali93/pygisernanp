@@ -16,7 +16,8 @@ arcpy.env.overwriteOutput = True
 feature = r"E:\sernanp\data\backup_2022_04_04.gdb\MonitDefor"
 gdb_template = r'E:\sernanp\proyectos\monitoreo\gdb_monit_template.gdb'
 
-oid = "FID" if feature.endswith(".shp") else "OBJECTID"
+# oid = "FID" if feature.endswith(".shp") else "OBJECTID"
+oid = arcpy.Describe(feature).OIDFieldName
 
 atd_plantilla = os.path.join(gdb_template, 'MonitDefor')
 path_exa = os.path.join(gdb_template, 'gpo_exa')
