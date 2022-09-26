@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+/.idea
+=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -107,3 +110,4 @@ statics/require/
 *.gz
 
 addin.*
+>>>>>>> 62bf45073e18c7179d69d3524529afbf16e8b929
