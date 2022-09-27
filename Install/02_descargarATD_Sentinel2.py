@@ -5,10 +5,14 @@ import datetime
 import arcpy
 import os
 
+
 # ---------------------------------------------------------------------------------------------------------------------
 # CONFIGURACION
 # ---------------------------------------------------------------------------------------------------------------------
 arcpy.env.overwriteOutput = True
+
+if arcpy.CheckExtension("Spatial") == "available":
+    arcpy.CheckOutExtension("Spatial")
 
 SCRATCH = arcpy.env.scratchGDB
 SCRATCH_FOLDER = arcpy.env.scratchFolder
