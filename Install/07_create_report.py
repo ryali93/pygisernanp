@@ -213,8 +213,7 @@ def proccess():
     fuente = 3
     mesrep = 2022091
     gdb = r'Database Connections\gdb.sde'
-    # gdb = r'Conexiones de base de datos\gdb.sde'
-    fc = os.path.join(gdb, r'gdb.sde.MonitoreoCobertura\gdb.sde.MonitoreoDeforestacion') # os.path.join(gdb, r'MonitDefor')
+    fc = os.path.join(gdb, r'gdb.sde.MonitoreoCobertura\gdb.sde.MonitoreoDeforestacion')
     path_xlsx_template = r'F:\sernanp\proyectos\monitoreo\reporte\reporte.xlsx'
     path_xlsx_outh = r'F:\sernanp\proyectos\monitoreo\reporte\reporte_2022091_pncb.xlsx'
 

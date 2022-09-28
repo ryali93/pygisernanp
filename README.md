@@ -36,10 +36,15 @@ Ver [repositorio](https://github.com/ryali93/pygisernanp)
     - La herramienta se conecta a la base de datos raster de la plataforma desarrollada por el equipo de la Universidad de Maryland, los descarga para las ANP que se encuentran en la estrategia de monitoreo.
     - Realiza una vectorización de los registros a un formato amigable para la fotointerpretación de las alertas.
     - Se conecta a unas capas de la plantilla y actualiza los campos necesarios para su posterior clasificación con imágenes de alta resolución.
-3. **Validación de datos**
+3. **Descarga de Datos Global Forest Watch [GFW](https://globalforestwatch.org/map/)**
+    - La herramienta se conecta al API de GFW y descarga las alertas con mayor probabilidad de ser deforestacón para las ANP que se encuentran en la estrategia de monitoreo.
+    - Realiza una vectorización de los registros a un formato amigable para la fotointerpretación de las alertas.
+4. **Validación de datos**
     - Esta herramienta permite actualizar los campos de los registros identificados como deforestación. Pudiendo ser de las diferentes fuentes (PNCB, GLAD-S2, Planet (NICFI), otro.)
-4. **Actualización AGOL**
+5. **Actualización AGOL**
     - Esta herramienta consume el objeto de la BDG institucional y permite actualizar los registros del servicio WFS publicado en el servidor, permitiendo visualizar los nuevos registros en los módulos a los que corresponden.
+6. **Descarga de datos a la BDG**
+    - En desarrollo.
 
 ## Créditos
 * [Roy Yali](https://github.com/ryali93)

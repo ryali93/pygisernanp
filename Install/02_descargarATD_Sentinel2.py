@@ -222,6 +222,7 @@ def process():
         arcpy.AddMessage("\tSe agrego a feature nuevo")
         arcpy.AddMessage("\tTermino la imagen: {}".format(id_img))
     
+    # 4. Actualizar campos
     update_fields(atd_nuevo, date_list)
     arcpy.AddMessage("\tSe actualizaron los campos")
 
@@ -258,10 +259,6 @@ def process():
 
 def main():
     process()
-    # atd_nuevo = r'E:\sernanp\proyectos\monitoreo\sentinel\gpo_defor_sentinel2_2022_02_28_10_58_51'
-    # temp_folder = r'c:\users\ryali93\appdata\local\temp\tmpd0oihr'
-    # arcpy.AddMessage("\tActualizando Confiabilidad")
-    # update_field_conf(fc=atd_nuevo, folder_img=temp_folder)
 
 if __name__ == '__main__':
     main()
